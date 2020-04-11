@@ -1,0 +1,36 @@
+# exports
+export LANG=en_US.UTF-8
+export LESS="$LESS -FRXK"
+
+# oh-my-zsh prompt
+export DISABLE_AUTO_UPDATE=true
+prompt_context(){}
+
+# zsh-complesions
+autoload -U compinit && compinit
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '~/google-cloud-sdk/path.bash.inc' ]; then source '~/google-cloud-sdk/path.bash.inc'; fi
+if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# alias
+alias ll="ls -la"
+alias ts="trash"
+
+# PATH
+typeset -aU path
+if [ -x "$(command -v go)" ]; then
+  go env -w GOPATH=$HOME/go
+  export GOPATH=$(go env GOPATH)
+  path=($path $GOPATH/bin)
+fi 
+path=(/usr/local/opt/python/libexec/bin /Users/vwxyutarooo/Library/Python/2.7/bin $path)
+
+if [ -f ./zshrc_user ]; then
+  source ./zshrc_user
+fi
